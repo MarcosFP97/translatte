@@ -26,6 +26,7 @@ class Translator:
     def translate(input_text, target_lang, proxy_host=None, source_lang='auto'):
         url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl={source_lang}&tl={target_lang}&dt=t&q={quote(input_text)}"
         req = Request(url=url)
-        req.set_proxy(proxy_host, 'http')
+        if proxy_host:
+            req.set_proxy(proxy_host, 'http')
         response = Translator.get_response_from_request(req)
         return Translator.get_translation_from_response(response)
